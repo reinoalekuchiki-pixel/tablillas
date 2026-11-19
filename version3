@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Poppins:wght@400;500;600&family=Sono:wght@400;600&display=swap');
+
+/* ---------- VARIABLES ---------- */
+.pl-wrap, .pj {
+  --fuente-titulo: 'Krona One', 'Trebuchet MS', sans-serif;
+  --fuente-texto: 'Poppins', 'Segoe UI', sans-serif;
+  --fuente-datos: 'Sono', 'Courier New', monospace;
+
+  --tinta: #23262f;
+  --suave: #6d7280;
+  --papel: #f2f3f5;       /* fondo gris claro, como el foro */
+  --panel: #ffffff;
+  --linea: #d9dce3;
+  --ac: #c9775b;          /* terracota */
+  --ac-claro: #f8e4da;
+  --sombra: 0 4px 14px rgba(35, 38, 47, .08);
+
+  --ancho-img: 245px;   /* imagen/gif: 245 x 150 */
+  --alto-img: 150px;
+  --alto-resumen: 120px; /* alto de la caja de descripción (con scroll) */
+  --alto-lista: 640px;   /* alto de la lista dentro de la tablilla */
+  --radio: 22px;
+}
+
+/* Variantes de color */
+.pj.b { --ac: #7f9c7a; --ac-claro: #e6efe3; }   /* salvia */
+.pj.c { --ac: #9a82b5; --ac-claro: #ece6f3; }   /* lavanda */
+.pj.d { --ac: #d49a3f; --ac-claro: #f8ecd2; }   /* mostaza */
+
+/* ---------- TABLILLA ---------- */
+.pl-wrap {
+  box-sizing: border-box;
+  max-width: 660px;
+  margin: 0 auto;
+  background: var(--papel);
+  border: 2px solid var(--linea);
+  border-radius: 30px;
+  box-shadow: var(--sombra);
+  padding: 26px 22px 22px;
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+}
+.pl-wrap *, .pj * { box-sizing: border-box; }
+
+.pl-cab { text-align: center; padding: 0 0 18px; }
+.pl-titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--ac);
+  margin: 0;
+}
+.pl-sub {
+  display: inline-block;
+  font-family: var(--fuente-datos);
+  font-size: 10px;
+  color: var(--ac);
+  background: var(--ac-claro);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-top: 10px;
+  letter-spacing: .5px;
+}
+
+/* Sinopsis: pastilla arriba + caja redondeada */
+.pl-sinopsis {
+  position: relative;
+  background: var(--panel);
+  border: 2px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 26px 22px 18px;
+  margin: 16px 0 26px;
+}
+.pl-lateral {
+  position: absolute;
+  top: -13px;
+  left: 20px;
+  background: var(--ac);
+  color: #fff;
+  font-family: var(--fuente-titulo);
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+.pl-texto {
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: left;
+}
+.pl-texto p { margin: 0 0 12px; }
+.pl-texto p:last-child { margin-bottom: 0; }
+
+/* Título de sección */
+.pl-sec {
+  font-family: var(--fuente-titulo);
+  font-size: 14px;
+  color: var(--ac);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pl-sec:after { content: ""; flex: 1; height: 0; border-top: 2px dotted var(--linea); }
+
+/* ---------- LISTA DE PERSONAJES ---------- */
+.pj-list { display: block; }
+
+.pl-wrap .pj-list {
+  max-height: var(--alto-lista);
+  overflow-y: auto;
+  padding: 2px 6px 2px 0;
+}
+
+/* ---------- FICHA (sola o dentro de la tablilla) ---------- */
+.pj {
+  display: grid;
+  grid-template-columns: var(--ancho-img) minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  column-gap: 16px;
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto 14px;
+  padding: 12px;
+  background: var(--panel);
+  border: 2px solid var(--linea);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+}
+.pj:last-child { margin-bottom: 0; }
+
+.pj-img {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: var(--ancho-img);
+  height: var(--alto-img);
+  background: var(--ac-claro);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pj-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+
+/* el cuerpo "desaparece" para que nombre, datos y resumen se coloquen en la rejilla */
+.pj-cuerpo { display: contents; }
+.pj-nombre {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  font-family: var(--fuente-titulo);
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--ac);
+  margin: 0 0 8px;
+}
+
+/* Datos como lista: etiqueta en píldora + valor */
+.pj-datos {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: calc(var(--alto-img) - 40px);  /* llena el hueco hasta el final de la imagen */
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ac) transparent;
+}
+.pj-dato {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fuente-datos);
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--tinta);
+  padding-bottom: 4px;
+  border-bottom: 1.5px dotted var(--linea);
+}
+.pj-dato:last-child { border-bottom: 0; }
+.pj-dato b {
+  flex: 0 0 66px;
+  text-align: center;
+  background: var(--ac-claro);
+  color: var(--ac);
+  font-weight: 600;
+  padding: 4px 0;
+  border-radius: 999px;
+}
+
+/* Resumen: ocupa todo el espacio restante, con scroll propio */
+.pj-resumen {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin-top: 12px;
+  height: var(--alto-resumen);
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: left;
+  background: var(--papel);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+/* Barras de scroll discretas */
+.pj-resumen, .pl-wrap .pj-list { scrollbar-width: thin; scrollbar-color: var(--ac) transparent; }
+.pj-resumen::-webkit-scrollbar, .pl-wrap .pj-list::-webkit-scrollbar { width: 5px; }
+.pj-resumen::-webkit-scrollbar-thumb, .pl-wrap .pj-list::-webkit-scrollbar-thumb { background: var(--ac); border-radius: 999px; }
+.pj-resumen::-webkit-scrollbar-track, .pl-wrap .pj-list::-webkit-scrollbar-track { background: transparent; }
+
+/* Móvil: imagen arriba, ficha alta y fija */
+@media (max-width: 520px) {
+  .pj { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .pj-img { grid-column: 1; grid-row: 1; width: 100%; }
+  .pj-nombre { grid-column: 1; grid-row: 2; margin-top: 12px; }
+  .pj-datos { grid-column: 1; grid-row: 3; height: auto; overflow: visible; margin-bottom: 12px; }
+  .pj-resumen { grid-column: 1; grid-row: 4; margin-top: 0; }
+  .pl-titulo { font-size: 19px; }
+}
