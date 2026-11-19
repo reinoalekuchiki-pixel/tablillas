@@ -1,3 +1,6 @@
+/* Carga de tipografías desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Poppins:wght@400;500;600;700&family=Sono:wght@400;500;600&display=swap');
+
 /* ---------- VARIABLES (cambia aquí colores, fuente y medidas) ---------- */
 .pl-wrap, .pj {
   --fuente-titulo: "Krona One", sans-serif;
@@ -13,8 +16,10 @@
   --ac-claro: #e3f0ef;
 
   --ancho-img: 130px;   /* ancho de la imagen/gif */
-  --alto-ficha: 180px;  /* alto fijo de cada ficha */
-  --alto-lista: 400px;  /* alto de la lista de personajes dentro de la tablilla */
+  --alto-ficha: 250px;  /* más espacio para describir cada personaje */
+  --alto-lista: 480px;  /* alto de la lista de personajes dentro de la tablilla */
+  --radio-caja: 18px;
+  --radio-ficha: 15px;
 }
 
 /* Variantes de color por grupo (añade la clase junto a "pj": class="pj b") */
@@ -30,13 +35,15 @@
   background: var(--papel);
   border: 1px solid var(--linea);
   border-top: 6px solid var(--ac);
+  border-radius: var(--radio-caja);
   padding: 22px 20px 20px;
   color: var(--tinta);
   font-family: var(--fuente-texto);
 }
 .pl-wrap *, .pj * { box-sizing: border-box; }
 
-.pl-cab { text-align: left; padding: 0 0 16px; margin-bottom: 18px; border-bottom: 1px solid var(--linea); }
+.pl-cab { text-align: left; padding: 0 0 18px; margin-bottom: 18px; position: relative; }
+.pl-cab:after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--linea); border-radius: 999px; }
 .pl-titulo {
   font-family: var(--fuente-titulo);
   font-size: 34px;
@@ -57,6 +64,8 @@
   display: flex;
   background: var(--panel);
   border: 1px solid var(--linea);
+  border-radius: 14px;
+  overflow: hidden;
   margin-bottom: 22px;
 }
 .pl-lateral {
@@ -72,7 +81,7 @@
 }
 .pl-texto {
   flex: 1;
-  padding: 16px 20px;
+  padding: 18px 22px;
   font-size: 13px;
   line-height: 1.75;
   text-align: justify;
@@ -85,104 +94,3 @@
   font-family: var(--fuente-titulo);
   font-size: 20px;
   color: var(--ac);
-  margin: 0 0 10px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.pl-sec:after { content: ""; flex: 1; height: 1px; background: var(--linea); }
-
-/* ---------- LISTA DE PERSONAJES ---------- */
-.pj-list { display: block; }
-
-/* Solo dentro de la tablilla: altura fija con scroll, puedes añadir fichas sin límite */
-.pl-wrap .pj-list {
-  max-height: var(--alto-lista);
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-/* ---------- FICHA DE PERSONAJE (funciona sola o dentro de la tablilla) ---------- */
-.pj {
-  display: flex;
-  width: 100%;
-  max-width: 640px;
-  height: var(--alto-ficha);
-  margin: 0 auto 12px;
-  background: var(--panel);
-  border: 1px solid var(--linea);
-  border-left: 4px solid var(--ac);
-  overflow: hidden;
-  color: var(--tinta);
-  font-family: var(--fuente-texto);
-}
-.pj:last-child { margin-bottom: 0; }
-
-.pj-img {
-  flex: 0 0 var(--ancho-img);
-  width: var(--ancho-img);
-  height: 100%;
-  background: var(--ac-claro);
-}
-.pj-img img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* el gif llena todo el espacio sin deformarse */
-  border: 0;
-}
-
-.pj-cuerpo {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 10px 14px 10px;
-}
-.pj-nombre {
-  font-family: var(--fuente-titulo);
-  font-size: 19px;
-  line-height: 1.1;
-  color: var(--ac);
-  margin: 0 0 7px;
-}
-
-/* Datos: cada uno con su etiqueta */
-.pj-datos { display: flex; flex-wrap: wrap; gap: 4px 5px; margin-bottom: 8px; }
-.pj-dato {
-  font-family: var(--fuente-datos);
-  font-size: 10px;
-  line-height: 1;
-  background: var(--ac-claro);
-  color: var(--tinta);
-  padding: 4px 7px;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-.pj-dato b { color: var(--ac); font-weight: bold; margin-right: 4px; }
-
-/* Resumen con scroll propio: la ficha NO cambia de tamaño */
-.pj-resumen {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  font-size: 12px;
-  line-height: 1.6;
-  text-align: justify;
-  padding-right: 6px;
-  border-top: 1px dashed var(--linea);
-  padding-top: 7px;
-}
-
-/* Barras de scroll discretas */
-.pj-resumen, .pl-wrap .pj-list { scrollbar-width: thin; scrollbar-color: var(--ac) transparent; }
-.pj-resumen::-webkit-scrollbar, .pl-wrap .pj-list::-webkit-scrollbar { width: 5px; }
-.pj-resumen::-webkit-scrollbar-thumb, .pl-wrap .pj-list::-webkit-scrollbar-thumb { background: var(--ac); border-radius: 3px; }
-.pj-resumen::-webkit-scrollbar-track, .pl-wrap .pj-list::-webkit-scrollbar-track { background: transparent; }
-
-/* Móvil: imagen arriba, ficha más alta pero también fija */
-@media (max-width: 520px) {
-  .pj { flex-direction: column; height: 360px; }
-  .pj-img { flex: 0 0 150px; width: 100%; height: 150px; }
-  .pl-titulo { font-size: 28px; }
-}
